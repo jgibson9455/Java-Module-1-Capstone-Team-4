@@ -1,27 +1,35 @@
 package com.techelevator;
 
-public abstract class Item {
+public class Item {
 	private String name;
-	private int quantity;
+	private String id;
 	private double price;
+	private String type;
 	
-	public Item(String name, double price, int quantity) {
+	public Item(String name, double price, String id, String type) {
 		this.name = name;
-		this.quantity = 5;
+		this.id = id;
 		this.price = price;
+		this.type = type;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public int getQuantity() {
-		return quantity;
-	}
 
 	public double getPrice() {
 		return price;
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getType() {
+		return type;
+	}
+	
 	
 	
 
