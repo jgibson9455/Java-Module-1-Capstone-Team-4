@@ -1,16 +1,17 @@
 package com.techelevator;
 
-public class Item {
+public abstract class Item {
 	private String name;
 	private String id;
 	private double price;
-	private String type;
+	private int quanity;
 	
-	public Item(String name, double price, String id, String type) {
+	public Item(String name, double price, String id, int quantity) {
 		this.name = name;
 		this.id = id;
 		this.price = price;
-		this.type = type;
+		quanity = 5;
+		
 	}
 
 	public String getName() {
@@ -26,8 +27,10 @@ public class Item {
 		return id;
 	}
 
-	public String getType() {
-		return type;
+	
+	public String getYumMessage() {
+		
+		return "";
 	}
 	
 	

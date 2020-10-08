@@ -2,11 +2,19 @@ package com.techelevator;
 
 public class Beverage extends Item{
 	
-	public Beverage(String name, double price, String id) {
-		super(name, price, id);
+	private String yumMessage;
+	
+	public Beverage(String name, double price, String id, int quantity) {
+		super(name, price, id, quantity);
+		
 	}
 	
-
+	@Override
+	public String getYumMessage () {
+		
+		yumMessage = "Glug Glug, Yum!";
+		return yumMessage;
+	}
 	
 	
 }

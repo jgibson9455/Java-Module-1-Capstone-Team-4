@@ -2,8 +2,17 @@ package com.techelevator;
 
 public class Gum extends Item{
 	
-	public Gum(String name, double price, String id) {
-		super(name, price, id);
+	private String yumMessage;
+	
+	public Gum(String name, double price, String id, int quantity) {
+		super(name, price, id, quantity);
 	}
 
+	@Override
+	public String getYumMessage () {
+		
+		yumMessage = "Chew Chew, Yum!";
+		return yumMessage;
+	}
+	
 }
