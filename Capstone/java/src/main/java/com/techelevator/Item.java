@@ -14,6 +14,14 @@ public abstract class Item {
 		
 	}
 
+	public int getQuanity() {
+		return quanity;
+	}
+
+	public void setQuanity(int quanity) {
+		this.quanity = quanity;
+	}
+
 	public String getName() {
 		return name;
 	}

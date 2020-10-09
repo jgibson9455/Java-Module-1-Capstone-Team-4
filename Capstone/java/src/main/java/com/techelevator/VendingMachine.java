@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class VendingMachine {
 
 	private Map<String, Item> inventory = new HashMap<>();
-	private double currentAmountofMoney = 0.0;
+	private double currentAmountOfMoney = 0.0;
 	private final double quarter = .25;
 	private final double nickel = .05;
 	private final double dime = .10;
@@ -51,6 +51,54 @@ public class VendingMachine {
 
 		}
 		theInventory.close();
+		
+		
 	}
-
+	
+	public double feedMoney() {
+		Scanner userInput = new Scanner(System.in);
+		String input = userInput.nextLine();
+	
+		if (input.equals("1")) { 
+			currentAmountOfMoney += 1.0; 
+			
+			
+		}
+		if (input.equals("2")) { 
+			currentAmountOfMoney += 2.0; 
+		
+	}
+		if (input.equals("5")) { 
+			currentAmountOfMoney += 5.0; 
+		}
+		if (input.equals("10")) { 
+			currentAmountOfMoney += 10.0; 
+		}
+		userInput.close();
+		return currentAmountOfMoney;
+		
+	}
+	
+	public void purchaseItems() {
+		Scanner theKeyboard = new Scanner(System.in);
+		String aLine = theKeyboard.nextLine();
+		for(Map.Entry<String, Item> aKey : inventory.entrySet() ) { //going through map
+			if(aLine.equals(aKey.getKey())) {
+				if(aKey.getValue().getQuanity() != 0 && currentAmountOfMoney >= aKey.getValue().getPrice()) { //value of Key needs to not be zero
+				   aKey.getValue().setQuanity(aKey.getValue().getQuanity() - 1); //set new quantity
+				   currentAmountOfMoney -= aKey.getValue().getPrice(); //subtract purchase price from money
+				   
+				}
+				
+				
+				
+			}
+			
+		}
+		theKeyboard.close();
+	}
+	
+	public  dispenseChange() {
+		
+	}
 }

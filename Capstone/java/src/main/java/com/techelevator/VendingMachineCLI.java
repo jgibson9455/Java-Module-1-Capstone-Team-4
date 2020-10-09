@@ -1,4 +1,6 @@
 package com.techelevator;
+import java.io.FileNotFoundException;
+
 /**************************************************************************************************************************
 *  This is your Vending Machine Command Line Interface (CLI) class
 *
@@ -40,10 +42,14 @@ public class VendingMachineCLI {
 	*  should be coded
 	*
 	*  Methods should be defined following run() method and invoked from it
+	 * @throws FileNotFoundException 
 	*
 	***************************************************************************************************************************/
 
-	public void run() {
+	public void run() throws FileNotFoundException {
+VendingMachine aVendingMachine = new VendingMachine(); //create vending machine
+aVendingMachine.stockVendingMachine();  //stock's vending machine
+
 
 		boolean shouldProcess = true;         // Loop control variable
 		
@@ -78,6 +84,7 @@ public class VendingMachineCLI {
 	
 	public void purchaseItems() {	 // static attribute used as method is not associated with specific object instance
 		// Code to purchase items from Vending Machine
+		
 	}
 	
 	public void endMethodProcessing() { // static attribute used as method is not associated with specific object instance
