@@ -15,7 +15,7 @@ public class VendingMachine {
 	private final double quarter = .25;
 	private final double nickel = .05;
 	private final double dime = .10;
-
+	Scanner userInput = new Scanner(System.in);
 	public void stockVendingMachine() throws FileNotFoundException {
 
 		File myInventory = new File("vendingmachine.csv");
@@ -56,7 +56,7 @@ public class VendingMachine {
 	}
 	
 	public double feedMoney() {
-		Scanner userInput = new Scanner(System.in);
+		
 		String input = userInput.nextLine();
 	
 		if (input.equals("1")) { 
@@ -79,7 +79,7 @@ public class VendingMachine {
 		
 	}
 	
-	public void purchaseItems() {
+	public String purchaseItems() {
 		Scanner theKeyboard = new Scanner(System.in);
 		String aLine = theKeyboard.nextLine();
 		for(Map.Entry<String, Item> aKey : inventory.entrySet() ) { //going through map
@@ -87,7 +87,11 @@ public class VendingMachine {
 				if(aKey.getValue().getQuanity() != 0 && currentAmountOfMoney >= aKey.getValue().getPrice()) { //value of Key needs to not be zero
 				   aKey.getValue().setQuanity(aKey.getValue().getQuanity() - 1); //set new quantity
 				   currentAmountOfMoney -= aKey.getValue().getPrice(); //subtract purchase price from money
+				   return aKey.getValue().getYumMessage();
 				   
+				}
+				if (aKey.getValue().getQuanity() == 0) {
+					return "SOLD OUT";
 				}
 				
 				
@@ -96,9 +100,43 @@ public class VendingMachine {
 			
 		}
 		theKeyboard.close();
-	}
-	
-	public  dispenseChange() {
+		return " "; 
 		
 	}
+	
+	public String dispenseChange() {
+		int quarterCount = 0;
+		int dimeCount = 0;
+		int nickelCount = 0;
+		
+		while(currentAmountOfMoney > 0) {
+			if (currentAmountOfMoney >= quarter) {
+				currentAmountOfMoney = currentAmountOfMoney - quarter;
+				quarterCount++;
+				continue;
+			}
+			if(currentAmountOfMoney >= dime) {
+				currentAmountOfMoney = currentAmountOfMoney - dime;
+				dimeCount++;
+				continue;
+			}
+			if (currentAmountOfMoney >= nickel) {
+				currentAmountOfMoney = currentAmountOfMoney - nickel;
+				nickelCount++;
+				continue;
+			}
+			 
+		}
+		
+		return "Quarters: " + quarterCount + " Dimes: " + dimeCount + " Nickels: " + nickelCount; 
+		
+	}
+	public void displayItems() {
+		for(Map.Entry<String, Item> aKey : inventory.entrySet() ) {
+			
+		System.out.println(aKey.getValue().getId() + " | " + aKey.getValue().getName() + " | " + aKey.getValue().getPrice() + " | " + aKey.getValue().getQuanity());
+		
+		}
+	}
+	
 }

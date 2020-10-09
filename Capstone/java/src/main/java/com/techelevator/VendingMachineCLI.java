@@ -25,7 +25,7 @@ public class VendingMachineCLI {
 													    MAIN_MENU_OPTION_PURCHASE,
 													    MAIN_MENU_OPTION_EXIT
 													    };
-	
+	VendingMachine aVendingMachine = new VendingMachine();
 	private Menu vendingMenu;              // Menu object to be used by an instance of this class
 	
 	public VendingMachineCLI(Menu menu) {  // Constructor - user will pas a menu for this class to use
@@ -47,7 +47,7 @@ public class VendingMachineCLI {
 	***************************************************************************************************************************/
 
 	public void run() throws FileNotFoundException {
-VendingMachine aVendingMachine = new VendingMachine(); //create vending machine
+//VendingMachine aVendingMachine = new VendingMachine(); //create vending machine
 aVendingMachine.stockVendingMachine();  //stock's vending machine
 
 
@@ -79,7 +79,7 @@ aVendingMachine.stockVendingMachine();  //stock's vending machine
  * Methods used to perform processing
  ********************************************************************************************************/
 	public void displayItems() {      // static attribute used as method is not associated with specific object instance
-		// Code to display items in Vending Machine
+	aVendingMachine.displayItems();	
 	}
 	
 	public void purchaseItems() {	 // static attribute used as method is not associated with specific object instance
