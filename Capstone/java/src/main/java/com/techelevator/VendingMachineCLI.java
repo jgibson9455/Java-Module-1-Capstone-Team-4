@@ -1,5 +1,7 @@
 package com.techelevator;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 
 /**************************************************************************************************************************
 *  This is your Vending Machine Command Line Interface (CLI) class
@@ -25,11 +27,32 @@ public class VendingMachineCLI {
 													    MAIN_MENU_OPTION_PURCHASE,
 													    MAIN_MENU_OPTION_EXIT
 													    };
-	VendingMachine aVendingMachine = new VendingMachine();
-	private Menu vendingMenu;              // Menu object to be used by an instance of this class
 	
-	public VendingMachineCLI(Menu menu) {  // Constructor - user will pas a menu for this class to use
+	private static final String PURCHASE_MENU_OPTION_FEED_MONEY = "Feed Money";
+	private static final String PURCHASE_MENU_OPTION_SELECT_PRODUCT      = "Select Product";
+	private static final String PURCHASE_MENU_OPTION_FINISH_TRANSACTION          = "Finish Transaction";
+	private static final String[] PURCHASE_MENU_OPTIONS = { PURCHASE_MENU_OPTION_FEED_MONEY,
+														PURCHASE_MENU_OPTION_SELECT_PRODUCT,
+														PURCHASE_MENU_OPTION_FINISH_TRANSACTION
+													    };
+	
+	
+	
+	
+	VendingMachine aVendingMachine = new VendingMachine();
+		
+	
+	
+	
+	
+	private Menu vendingMenu;              // Menu object to be used by an instance of this class
+	private Menu purchaseMenu;
+	
+	
+	
+	public VendingMachineCLI(Menu menu, Menu purchaseMenu) {  // Constructor - user will pas a menu for this class to use
 		this.vendingMenu = menu;           // Make the Menu the user object passed, our Menu
+		this.purchaseMenu = purchaseMenu;
 	}
 	/**************************************************************************************************************************
 	*  VendingMachineCLI main processing loop
@@ -82,12 +105,54 @@ aVendingMachine.stockVendingMachine();  //stock's vending machine
 	aVendingMachine.displayItems();	
 	}
 	
-	public void purchaseItems() {	 // static attribute used as method is not associated with specific object instance
-		// Code to purchase items from Vending Machine
+	public void purchaseItems() throws FileNotFoundException {	
+		
+		boolean shouldProcess = true;         // Loop control variable
+		
+		while(shouldProcess) {                // Loop until user indicates they want to exit
+			
+			String currentBalance = "Current Money Provided: " +"$" + aVendingMachine.getCurrentAmountOfMoney();
+			System.out.println("\n" + currentBalance);
+			
+			String choice = (String)purchaseMenu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);  // Display menu and get choice
+			
+			
+			switch(choice) {                  // Process based on user menu choice
+			
+				case PURCHASE_MENU_OPTION_FEED_MONEY:
+					aVendingMachine.feedMoney();          // invoke method to display items in Vending Machine
+					break;                    // Exit switch statement
+			
+				case PURCHASE_MENU_OPTION_SELECT_PRODUCT:
+					aVendingMachine.displayItems();
+					aVendingMachine.purchaseItems();        // invoke method to purchase items from Vending Machine
+					break;                    // Exit switch statement
+			
+				case PURCHASE_MENU_OPTION_FINISH_TRANSACTION:
+					aVendingMachine.dispenseChange();
+					//endMethodProcessing();    // Invoke method to perform end of method processing
+					shouldProcess = false;    // Set variable to end loop
+					break;                    // Exit switch statement
+			}	
+		}
+		return;                               // End method and return to caller
+		
+		
+		
 		
 	}
 	
 	public void endMethodProcessing() { // static attribute used as method is not associated with specific object instance
 		// Any processing that needs to be done before method ends
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
