@@ -2,6 +2,7 @@ package com.techelevator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 
 /**************************************************************************************************************************
 *  This is your Vending Machine Command Line Interface (CLI) class
@@ -23,9 +24,11 @@ public class VendingMachineCLI {
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
 	private static final String MAIN_MENU_OPTION_PURCHASE      = "Purchase";
 	private static final String MAIN_MENU_OPTION_EXIT          = "Exit";
+	private static final String MAIN_MENU_OPTION_REPORT          = "Sales Report";
 	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS,
 													    MAIN_MENU_OPTION_PURCHASE,
-													    MAIN_MENU_OPTION_EXIT
+													    MAIN_MENU_OPTION_EXIT,
+													    MAIN_MENU_OPTION_REPORT  
 													    };
 	
 	private static final String PURCHASE_MENU_OPTION_FEED_MONEY = "Feed Money";
@@ -65,11 +68,11 @@ public class VendingMachineCLI {
 	*  should be coded
 	*
 	*  Methods should be defined following run() method and invoked from it
-	 * @throws FileNotFoundException 
+	 * @throws IOException 
 	*
 	***************************************************************************************************************************/
 
-	public void run() throws FileNotFoundException {
+	public void run() throws IOException {
 //VendingMachine aVendingMachine = new VendingMachine(); //create vending machine
 aVendingMachine.stockVendingMachine();  //stock's vending machine
 
@@ -91,9 +94,15 @@ aVendingMachine.stockVendingMachine();  //stock's vending machine
 					break;                    // Exit switch statement
 			
 				case MAIN_MENU_OPTION_EXIT:
+					aVendingMachine.writeLog();
 					endMethodProcessing();    // Invoke method to perform end of method processing
 					shouldProcess = false;    // Set variable to end loop
 					break;                    // Exit switch statement
+				
+				case MAIN_MENU_OPTION_REPORT:
+					aVendingMachine.generateSalesReport();
+					break;
+					
 			}	
 		}
 		return;                               // End method and return to caller
@@ -105,13 +114,15 @@ aVendingMachine.stockVendingMachine();  //stock's vending machine
 	aVendingMachine.displayItems();	
 	}
 	
-	public void purchaseItems() throws FileNotFoundException {	
+	public void purchaseItems() throws IOException {	
 		
 		boolean shouldProcess = true;         // Loop control variable
 		
 		while(shouldProcess) {                // Loop until user indicates they want to exit
 			
-			String currentBalance = "Current Money Provided: " +"$" + aVendingMachine.getCurrentAmountOfMoney();
+			String formatDouble = String.format("%.2f", aVendingMachine.getCurrentAmountOfMoney());
+			
+			String currentBalance = "Current Money Provided: " +"$" + formatDouble;
 			System.out.println("\n" + currentBalance);
 			
 			String choice = (String)purchaseMenu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);  // Display menu and get choice
@@ -121,11 +132,13 @@ aVendingMachine.stockVendingMachine();  //stock's vending machine
 			
 				case PURCHASE_MENU_OPTION_FEED_MONEY:
 					aVendingMachine.feedMoney();          // invoke method to display items in Vending Machine
+					
 					break;                    // Exit switch statement
 			
 				case PURCHASE_MENU_OPTION_SELECT_PRODUCT:
 					aVendingMachine.displayItems();
 					aVendingMachine.purchaseItems();        // invoke method to purchase items from Vending Machine
+					
 					break;                    // Exit switch statement
 			
 				case PURCHASE_MENU_OPTION_FINISH_TRANSACTION:
