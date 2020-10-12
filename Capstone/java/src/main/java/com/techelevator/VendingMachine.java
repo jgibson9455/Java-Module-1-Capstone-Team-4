@@ -194,9 +194,13 @@ public class VendingMachine {
 		File salesReport = new File(timeStamp.format(timeStampFormatter) + "_SalesReport.txt");
 		try (FileWriter reportWriter = new FileWriter(salesReport)) {
 		
-		double totalSales = 0;
 			
-		for (Map.Entry<String, Item> aKey : inventory.entrySet()) {
+			double totalSales = 0;
+		
+			for (Map.Entry<String, Item> aKey : inventory.entrySet()) {
+				
+				
+				
 		
 			totalSales = totalSales + ((5- aKey.getValue().getQuanity()) * aKey.getValue().getPrice());
 		
@@ -204,9 +208,9 @@ public class VendingMachine {
 		reportWriter.write("\n");
 			
 		}
-		
+		String formatDouble = String.format("%.2f", totalSales);
 		reportWriter.write("\n");
-		reportWriter.write("Total Sales: " + "$" + totalSales);
+		reportWriter.write("Total Sales: " + "$" + formatDouble);
 		
 		
 		}
